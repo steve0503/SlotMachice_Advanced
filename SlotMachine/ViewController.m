@@ -25,14 +25,29 @@
 
 @implementation ViewController
 
--(BOOL)textFieldShouldReturn:(UITextField *)textField{
+-(void)updateMoney{
     
     NSNumberFormatter* fomatter = [[NSNumberFormatter alloc]init];
     
     [fomatter setNumberStyle:NSNumberFormatterCurrencyStyle];
     
     self._money = [fomatter numberFromString:self.textField.text];
+    
+}
 
+- (IBAction)betMoney:(id)sender {
+    
+
+    [self updateMoney];
+    
+    [self.textField resignFirstResponder];
+    
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    
+
+    [self updateMoney];
     
     [self.textField resignFirstResponder];
     
@@ -40,9 +55,11 @@
     
 }
 
+
+
 #if 1
 
--(NSInteger)iBet:(NSInteger)x : (NSInteger)y : (NSInteger)z {
+-(NSInteger)match:(NSInteger)x : (NSInteger)y : (NSInteger)z {
     
     NSInteger _x = x%11;
     
@@ -69,7 +86,7 @@
 #if 1
 -(IBAction)startMachine:(id)sender{
     
-    int num;
+    NSInteger value;
     
     int r1 = arc4random()%MAX_NUM;
     
@@ -85,11 +102,11 @@
     [self.picker selectRow:r3 inComponent:2 animated:YES];
     
     
-    num = [self iBet:r1 :r2 :r3 ];
+    value = [self match:r1 :r2 :r3 ];
     
-    self.moneyLabel.text = [NSString stringWithFormat:@"You Win %d",num];
+    self.moneyLabel.text = [NSString stringWithFormat:@"You Win %ld",value];
     
-    ;
+    
     
 }
 #endif
